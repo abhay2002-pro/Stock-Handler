@@ -15,3 +15,13 @@ mongoose
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); // listen for request
   })
   .catch((err) => console.log(err));
+
+// adding routes
+const auth = require('./routes/authRoutes');
+const stocks = require('./routes/stocksRoutes');
+const ErrorMiddleware = require("./middlewares/Error");
+
+app.use("api/v1", auth);
+app.use("api/v1", stocks);
+
+app.use(ErrorMiddleware)
