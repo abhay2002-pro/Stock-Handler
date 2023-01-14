@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 
 const cors = require("cors");
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 4001;
 // url to connect mongodb
 const link = `mongodb+srv://${process.env.PASSWORD}:mongodb2002@cluster0.8et7m.mongodb.net/${process.env.DATABASENAME}`;
@@ -17,11 +19,11 @@ mongoose
   .catch((err) => console.log(err));
 
 // adding routes
-const auth = require('./routes/authRoutes');
-const stocks = require('./routes/stocksRoutes');
+const auth = require("./routes/authRoutes");
+const stocks = require("./routes/stocksRoutes");
 const ErrorMiddleware = require("./middlewares/Error");
 
-app.use("api/v1", auth);
-app.use("api/v1", stocks);
+app.use("/api/v1", auth);
+app.use("/api/v1", stocks);
 
-app.use(ErrorMiddleware)
+app.use(ErrorMiddleware);
