@@ -8,7 +8,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Typography } from "@mui/material";
 
 export default function Graph({ data }) {
   //   console.log(data);
@@ -29,20 +29,25 @@ export default function Graph({ data }) {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="Date"
+            tickLine={false}
+            axisLine={{ stroke: "#bbbbbb" }}
+            tick={{ fill: "#b0b0b0" }}
             tickFormatter={(val) => {
-              return new Date(val).toDateString();
+              const date = new Date(val);
+              return `${date.getDate()}/${
+                date.getMonth() + 1
+              }/${date.getFullYear()}`;
             }}
           />
-          <YAxis />
-          <Tooltip
-            cursor={{ stroke: "red", strokeWidth: 2 }}
-            content={<CustomTickFormator />}
-          />
+          <YAxis axisLine={{ stroke: "#bbbbbb" }} tick={{ fill: "#b0b0b0" }} />
+          <Tooltip content={<CustomTickFormator />} />
           <Area
             type="monotone"
             dataKey="Open"
-            stroke="#8884d8"
-            fill="#8884d8"
+            stroke="#8676ff"
+            fill="#F8F6FF"
+            strokeWidth={3}
+            dot={false}
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -52,16 +57,33 @@ export default function Graph({ data }) {
 
 function CustomTickFormator({ active, payload }) {
   if (active) {
-    const data = payload[0].payload;
-    return (
-      <Box p="5px" backdropBlur="6px" bgColor="rgba(255, 255, 255, 0.5)">
-        <Text>Date: {new Date(data.Date).toDateString()}</Text>
-        <Text>Open: {data.Open}</Text>
-        <Text>Close: {data.Close}</Text>
-        <Text>High: {data.High}</Text>
-        <Text>Low: {data.Low}</Text>
-      </Box>
-    );
+    try {
+      const data = payload[0].payload;
+      const date = new Date(data.Date);
+
+      return (
+        <Box
+          sx={{
+            padding: "8px",
+            color: "#383874",
+            backgroundColor: "#fff",
+            border: "1px solid #e4e4e4",
+          }}
+        >
+          <Typography>
+            Date:{" "}
+            {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}
+          </Typography>
+          <Typography>Open: {data.Open.toFixed(3)}</Typography>
+          <Typography>Close: {data.Close.toFixed(3)}</Typography>
+          <Typography>High: {data.High.toFixed(3)}</Typography>
+          <Typography>Low: {data.Low.toFixed(3)}</Typography>
+        </Box>
+      );
+    } catch (error) {
+      console.log(error.message);
+      return null;
+    }
   }
 
   return null;
