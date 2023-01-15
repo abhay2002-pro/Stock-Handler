@@ -1,8 +1,12 @@
 const express = require("express");
-const { Stocks, getCompanyData } = require("../controllers/stocksController.js");
+const {
+  Stocks,
+  getCompanyData,
+} = require("../controllers/stocksController.js");
+const { verifyToken } = require("../middlewares/auth");
 const router = express.Router();
 
-router.get("/stocks", Stocks);
-router.get("/company", getCompanyData);
+router.get("/stocks", verifyToken, Stocks);
+router.get("/company", verifyToken, getCompanyData);
 
 module.exports = router;

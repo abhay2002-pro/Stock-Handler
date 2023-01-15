@@ -1,0 +1,74 @@
+{
+    "Header": {
+      "title": "We are a Landing Page",
+      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diam sed commodo nibh ante facilisis bibendum."
+    },
+    "About": {
+      "paragraph": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "Why": [
+        "Lorem ipsum dolor",
+        "Tempor incididunt",
+        "Lorem ipsum dolor",
+        "Incididunt ut labore"
+      ],
+      "Why2": [
+        "Aliquip ex ea commodo",
+        "Lorem ipsum dolor",
+        "Exercitation ullamco",
+        "Lorem ipsum dolor"
+      ]
+    },
+    "Team": [
+      {
+        "img": "team/01.jpg",
+        "name": "John Doe",
+        "job": "Director"
+      },
+      {
+        "img": "team/02.jpg",
+        "name": "Mike Doe",
+        "job": "Senior Designer"
+      },
+      {
+        "img": "team/03.jpg",
+        "name": "Jane Doe",
+        "job": "Senior Designer"
+      },
+      {
+        "img": "team/04.jpg",
+        "name": "Karen Doe",
+        "job": "Project Manager"
+      }
+    ],
+    "Contact": {
+      "address": "4321 California St, San Francisco, CA 12345 ",
+      "phone": "+1 123 456 1234",
+      "email": "info@company.com",
+      "facebook": "fb.com",
+      "twitter": "twitter.com",
+      "youtube": "youtube.com"
+    },
+    "Ways_to_grow_your_wealth": [
+      {
+        "icon": "fa fa-comments-o",
+        "title": "Stocks",
+        "text": "A stock is a general term used to describe the ownership certificates of any company. A share, on the other hand, refers to the stock certificate of a particular company."
+      },
+      {
+        "icon": "fa fa-bullhorn",
+        "title": "IPOs",
+        "text": "An initial public offering (IPO) refers to the process of offering shares of a private corporation to the public in a new stock issuance for the first time. An IPO allows a company to raise equity capital from public investors."
+      },
+      {
+        "icon": "fa fa-group",
+        "title": "Mutual Funds",
+        "text": "A mutual fund is a pool of money managed by a professional Fund Manager. It is a trust that collects money from a number of investors who share a common investment objective and invests the same in equities, bonds, money market instruments and/or other securities."
+      },
+      {
+        "icon": "fa fa-magic",
+        "title": "Futures & Options",
+        "text": "Future and Option are two derivative instruments where the traders buy or sell an underlying asset at a pre-determined price. The trader makes profit if the price rises in case, he has a buy position and if he has a sell position, fall in price is beneficial for him."
+      }
+    ]
+  }
+  
