@@ -10,8 +10,8 @@ const LandingPage = (props) => {
     <>
       <Navigation />
       <Header />
-      <Features data={props.data.Features} />
-      <Team data={props.data.Team} />
+      <Features data={props.data.Ways_to_grow_your_wealth} />
+      {/* <Team data={props.data.Team} /> */}
       <Contact data={props.data.Contact} />
     </>
   );
