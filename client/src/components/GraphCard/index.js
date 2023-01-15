@@ -7,22 +7,40 @@ import {
   Select,
   MenuItem,
   FormControl,
+  Grid,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Image } from "../../constants/stats";
 
-export default function GraphCard() {
-  const [company, setCompany] = useState("reliance");
+export default function GraphCard({
+  TIME,
+  showoptions,
+  defaultoption,
+  search,
+}) {
+  const [option, setOption] = useState(defaultoption);
   const [time, setTime] = useState("1W");
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(() => true);
     fetch(
-      `http://localhost:4001/api/v1/company?time=${time}&company=${company}`
+      `http://localhost:4001/api/v1/${search}?time=${time}&${
+        search === "company" ? "company" : "stock"
+      }=${option}`
     )
       .then((res) => res.json())
-      .then((data) => setData(data))
-      .catch((err) => console.log(err));
-  }, [company, time]);
-  //   console.log(data);
+      .then((data) => {
+        setLoading(() => false);
+        setData(data);
+      })
+      .catch((err) => {
+        setLoading(() => false);
+        console.log(err);
+      });
+  }, [option, time]);
+
   return (
     <Box>
       <Box
@@ -43,63 +61,38 @@ export default function GraphCard() {
           <Typography
             variant="h5"
             component="h4"
-            sx={{ color: "#383874", fontSize: "18px", fontWeight: "bold" }}
+            sx={{ color: "#383874", fontSize: "20px", fontWeight: "bold" }}
           >
-            {company.toUpperCase()}
+            <Image h="20px" w="20px" name={option} />
+            {option.toUpperCase()}
           </Typography>
           <Box>
             <FormControl
               sx={{ width: "110px", fontSize: "15px", marginRight: "8px" }}
             >
-              <InputLabel id="demo-simple-select-label">Company</InputLabel>
+              <InputLabel id="demo-simple-select-label">
+                {search === "company" ? "Company" : "Stock"}
+              </InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="company"
+                label={search === "company" ? "company" : "stock"}
+                value={option}
                 onChange={(e) => {
-                  setCompany(e.target.value);
+                  setOption(e.target.value);
                 }}
               >
-                <MenuItem value="reliance" selected>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Reliance
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="ashokley">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Ashokley
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="tatasteel">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Tatasteel
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="cipla">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    Cipla
-                  </Typography>
-                </MenuItem>
+                {showoptions.map((ele, index) => (
+                  <MenuItem value={ele.value} key={index}>
+                    <Typography
+                      variant="body1"
+                      component="span"
+                      sx={{ color: "#383874", fontWeight: "bold" }}
+                    >
+                      <Image h="15px" w="15px" name={ele.value} /> {ele.name}
+                    </Typography>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
             <FormControl sx={{ width: "110px", fontSize: "15px" }}>
@@ -107,57 +100,123 @@ export default function GraphCard() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                label="time"
+                label="default 1 week"
+                value={"1W"}
                 onChange={(e) => {
                   setTime(e.target.value);
                 }}
               >
-                <MenuItem value="1W" selected>
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    1 Week
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="1M">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    1 Month
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="1Y">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    1 Year
-                  </Typography>
-                </MenuItem>
-                <MenuItem value="ALL">
-                  <Typography
-                    variant="body1"
-                    component="span"
-                    sx={{ color: "#383874", fontWeight: "bold" }}
-                  >
-                    {" "}
-                    All time
-                  </Typography>
-                </MenuItem>
+                {TIME.map((ele, index) => (
+                  <MenuItem value={ele.value} key={index}>
+                    <Typography
+                      variant="body1"
+                      component="span"
+                      sx={{ color: "#383874", fontWeight: "bold" }}
+                    >
+                      {" "}
+                      {ele.name}
+                    </Typography>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Box>
         </Box>
-        <Box sx={{ margin: "10px", width: "100%", height: "400px" }}>
-          <Graph data={data} />
+        {data.length > 0 && (
+          <Box sx={{ padding: "5px 20px" }}>
+            <Grid container spacing={2}>
+              <Grid item md={4} sm={6} xs={12}>
+                <Box
+                  sx={{
+                    borderBottom: "1px dotted #e4e4e4",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Typography sx={{ color: "#666" }}>Open</Typography>
+                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                    {data[0].Open.toFixed(3)}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Box
+                  sx={{
+                    borderBottom: "1px dotted #e4e4e4",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Typography sx={{ color: "#666" }}>
+                    Previous Close{" "}
+                  </Typography>
+                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                    {data[1].Close.toFixed(3)}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Box
+                  sx={{
+                    borderBottom: "1px dotted #e4e4e4",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Typography sx={{ color: "#666" }}>Volume</Typography>
+                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                    {data[0].Volume.toFixed(3)}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item md={4} sm={6} xs={12}>
+                <Box
+                  sx={{
+                    borderBottom: "1px dotted #e4e4e4",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Typography sx={{ color: "#666" }}>High</Typography>
+                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                    {data[0].High}
+                  </Typography>
+                </Box>
+              </Grid>
+
+              <Grid item md={4} sm={6} xs={12}>
+                <Box
+                  sx={{
+                    borderBottom: "1px dotted #e4e4e4",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "5px",
+                  }}
+                >
+                  <Typography sx={{ color: "#666" }}>Low</Typography>
+                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                    {data[0].Low}
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        )}
+        <Box
+          sx={{
+            margin: "10px",
+            width: "100%",
+            height: "500px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {loading ? <CircularProgress size={70} /> : <Graph data={data} />}
         </Box>
       </Box>
     </Box>

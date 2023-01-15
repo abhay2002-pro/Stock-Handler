@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   AreaChart,
   Area,
@@ -11,39 +11,57 @@ import {
 import { Box, Typography } from "@mui/material";
 
 export default function Graph({ data }) {
-  //   console.log(data);
+  const transfromData = (data) => {
+    const transfromdata = [];
+    data.forEach((ele) => {
+      const date = new Date(ele.Date);
+      transfromdata.push({
+        ...ele,
+        Time: "09:00:AM",
+        Showval: ele.Open,
+        DateTime: `${date.getDate()}/${
+          date.getMonth() + 1
+        }/${date.getFullYear()} 09:00:AM`,
+      });
+      transfromdata.push({
+        ...ele,
+        Time: "03:00:PM",
+        Showval: ele.Close,
+        DateTime: `${date.getDate()}/${
+          date.getMonth() + 1
+        }/${date.getFullYear()} 03:00:PM`,
+      });
+    });
+    return transfromdata;
+  };
+  const newdata = useMemo(() => transfromData(data), [data]);
+  console.log(newdata);
   return (
     <>
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
           width={500}
-          height={300}
-          data={data}
+          height={500}
+          data={newdata}
           margin={{
-            top: 10,
+            top: 15,
             right: 30,
-            left: 0,
-            bottom: 0,
+            left: -20,
+            bottom: 60,
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
-            dataKey="Date"
+            dataKey="DateTime"
             tickLine={false}
-            axisLine={{ stroke: "#bbbbbb" }}
-            tick={{ fill: "#b0b0b0" }}
-            tickFormatter={(val) => {
-              const date = new Date(val);
-              return `${date.getDate()}/${
-                date.getMonth() + 1
-              }/${date.getFullYear()}`;
-            }}
+            axisLine={{ stroke: "#666" }}
+            tick={<CustomizedAxisTick />}
           />
-          <YAxis axisLine={{ stroke: "#bbbbbb" }} tick={{ fill: "#b0b0b0" }} />
-          <Tooltip content={<CustomTickFormator />} />
+          <YAxis axisLine={{ stroke: "#666" }} tick={{ fill: "#666" }} />
+          <Tooltip content={<CustomToolTip />} />
           <Area
             type="monotone"
-            dataKey="Open"
+            dataKey="Showval"
             stroke="#8676ff"
             fill="#F8F6FF"
             strokeWidth={3}
@@ -55,7 +73,25 @@ export default function Graph({ data }) {
   );
 }
 
-function CustomTickFormator({ active, payload }) {
+function CustomizedAxisTick(props) {
+  const { x, y, stroke, payload } = props;
+  return (
+    <g transform={`translate(${x},${y})`}>
+      <text
+        x={0}
+        y={0}
+        dy={4}
+        textAnchor="end"
+        fill="#666"
+        transform="rotate(-35)"
+      >
+        {payload.value}
+      </text>
+    </g>
+  );
+}
+
+function CustomToolTip({ active, payload }) {
   if (active) {
     try {
       const data = payload[0].payload;
@@ -70,10 +106,15 @@ function CustomTickFormator({ active, payload }) {
             border: "1px solid #e4e4e4",
           }}
         >
+          <Typography sx={{ fontWeight: "bold" }}>
+            {data.Showval.toFixed(3)}
+          </Typography>
+
           <Typography>
             Date:{" "}
             {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}
           </Typography>
+          <Typography>Time: {data.Time}</Typography>
           <Typography>Open: {data.Open.toFixed(3)}</Typography>
           <Typography>Close: {data.Close.toFixed(3)}</Typography>
           <Typography>High: {data.High.toFixed(3)}</Typography>
