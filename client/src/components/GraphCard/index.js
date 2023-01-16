@@ -42,7 +42,7 @@ export default function GraphCard({
   }, [option, time]);
 
   return (
-    <Box>
+    <Box style={{ background: "#f6f6f6" }}>
       <Box
         sx={{
           border: "1px solid #e4e4e4",
@@ -134,8 +134,16 @@ export default function GraphCard({
                     padding: "5px",
                   }}
                 >
-                  <Typography sx={{ color: "#666" }}>Open</Typography>
-                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                  <Typography sx={{ color: "#666", fontSize: "15px" }}>
+                    Open
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#383874",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
                     {data[0].Open.toFixed(3)}
                   </Typography>
                 </Box>
@@ -149,10 +157,16 @@ export default function GraphCard({
                     padding: "5px",
                   }}
                 >
-                  <Typography sx={{ color: "#666" }}>
+                  <Typography sx={{ color: "#666", fontSize: "15px" }}>
                     Previous Close{" "}
                   </Typography>
-                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                  <Typography
+                    sx={{
+                      color: "#383874",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
                     {data[1].Close.toFixed(3)}
                   </Typography>
                 </Box>
@@ -166,8 +180,16 @@ export default function GraphCard({
                     padding: "5px",
                   }}
                 >
-                  <Typography sx={{ color: "#666" }}>Volume</Typography>
-                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                  <Typography sx={{ color: "#666", fontSize: "15px" }}>
+                    Volume
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#383874",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
                     {data[0].Volume.toFixed(3)}
                   </Typography>
                 </Box>
@@ -181,8 +203,16 @@ export default function GraphCard({
                     padding: "5px",
                   }}
                 >
-                  <Typography sx={{ color: "#666" }}>High</Typography>
-                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                  <Typography sx={{ color: "#666", fontSize: "15px" }}>
+                    High
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#383874",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
                     {data[0].High}
                   </Typography>
                 </Box>
@@ -197,8 +227,16 @@ export default function GraphCard({
                     padding: "5px",
                   }}
                 >
-                  <Typography sx={{ color: "#666" }}>Low</Typography>
-                  <Typography sx={{ color: "#383874", fontWeight: "bold" }}>
+                  <Typography sx={{ color: "#666", fontSize: "15px" }}>
+                    Low
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "#383874",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
                     {data[0].Low}
                   </Typography>
                 </Box>

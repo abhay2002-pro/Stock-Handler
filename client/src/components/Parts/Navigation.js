@@ -36,8 +36,13 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="#contact" className="page-scroll">
-                Contact
+              <a href="#si" className="page-scroll">
+                STOCK MARKET INDICES
+              </a>
+            </li>
+            <li>
+              <a href="#company" className="page-scroll">
+                Company Stocks Prices
               </a>
             </li>
             <li>

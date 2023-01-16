@@ -1,9 +1,6 @@
 import "./App.css";
-import GraphCard from "./components/GraphCard";
-import { companyList, TIME, SIList } from "./constants/stats";
 import LandingPage from "./components/LandingPage";
 import data from "./data/data.json";
-// import { useLocalStorage } from "./hooks/useLocalStorage";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import SignUpIn from "./components/Auth/loginsignup";
 import { useEffect, useState, useCallback } from "react";
@@ -67,21 +64,6 @@ function App() {
       >
         <main>{routes}</main>
       </AuthContext.Provider>
-
-      {/* <SignUp />
-      <GraphCard
-        TIME={TIME}
-        showoptions={companyList}
-        defaultoption="reliance"
-        search="company"
-      />
-      <GraphCard
-        TIME={TIME}
-        showoptions={SIList}
-        defaultoption="nse"
-        search="stocks"
-      />
-      <LandingPage data={data} /> */}
     </>
   );
 }
