@@ -106,19 +106,27 @@ function CustomToolTip({ active, payload }) {
             border: "1px solid #e4e4e4",
           }}
         >
-          <Typography sx={{ fontWeight: "bold" }}>
+          <Typography sx={{ fontWeight: "bold", fontSize: "16px" }}>
             {data.Showval.toFixed(3)}
           </Typography>
 
-          <Typography>
+          <Typography sx={{ fontSize: "14px" }}>
             Date:{" "}
             {`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`}
           </Typography>
-          <Typography>Time: {data.Time}</Typography>
-          <Typography>Open: {data.Open.toFixed(3)}</Typography>
-          <Typography>Close: {data.Close.toFixed(3)}</Typography>
-          <Typography>High: {data.High.toFixed(3)}</Typography>
-          <Typography>Low: {data.Low.toFixed(3)}</Typography>
+          <Typography sx={{ fontSize: "14px" }}>Time: {data.Time}</Typography>
+          <Typography sx={{ fontSize: "14px" }}>
+            Open: {data.Open.toFixed(3)}
+          </Typography>
+          <Typography sx={{ fontSize: "14px" }}>
+            Close: {data.Close.toFixed(3)}
+          </Typography>
+          <Typography sx={{ fontSize: "14px" }}>
+            High: {data.High.toFixed(3)}
+          </Typography>
+          <Typography sx={{ fontSize: "14px" }}>
+            Low: {data.Low.toFixed(3)}
+          </Typography>
         </Box>
       );
     } catch (error) {
