@@ -25,7 +25,7 @@ export default function SignUpIn() {
       return;
     }
 
-    fetch("http://localhost:4001/api/v1/login", {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/login`, {
       method: "POST",
       body: JSON.stringify({
         email,
@@ -68,7 +68,7 @@ export default function SignUpIn() {
       return;
     }
 
-    fetch("http://localhost:4001/api/v1/register", {
+    fetch(`${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/register`, {
       method: "POST",
       body: JSON.stringify({
         first_name,

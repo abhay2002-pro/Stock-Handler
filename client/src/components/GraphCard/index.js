@@ -26,7 +26,7 @@ export default function GraphCard({
   useEffect(() => {
     setLoading(() => true);
     fetch(
-      `http://localhost:4001/api/v1/${search}?time=${time}&${
+      `${process.env.REACT_APP_SERVER_BASE_URL}/api/v1/${search}?time=${time}&${
         search === "company" ? "company" : "stock"
       }=${option}`
     )
