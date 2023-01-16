@@ -3,15 +3,24 @@ import GraphCard from "./components/GraphCard";
 import { companyList, TIME, SIList } from "./constants/stats";
 import LandingPage from "./components/LandingPage";
 import data from "./data/data.json";
-import SignUp from "./components/SignUp";
-import Login from "./components/Login";
+
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
+import SignUpIn from "./components/Auth/loginsignup";
 
 function App() {
   console.log(data);
 
   return (
     <>
-      <SignUp />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navigate to="/home" />} />
+
+          <Route element={<SignUpIn />} path="/account" />
+          <Route element={<LandingPage data={data} />} path="/home" />
+        </Routes>
+      </BrowserRouter>
+      {/* <SignUp />
       <GraphCard
         TIME={TIME}
         showoptions={companyList}
@@ -24,7 +33,7 @@ function App() {
         defaultoption="nse"
         search="stocks"
       />
-      <LandingPage data={data} />
+      <LandingPage data={data} /> */}
     </>
   );
 }
