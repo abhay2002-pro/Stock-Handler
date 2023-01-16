@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styles from "./loginsignup.module.css";
-
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../contexts/authcontext";
 
 export default function SignUpIn() {
   const [rightPanel, setRightPanel] = useState(false);
@@ -13,7 +13,8 @@ export default function SignUpIn() {
     first_name: "",
   });
   const navigate = useNavigate();
-
+  //   const { setValue, removeValue } = useLocalStorage();
+  const auth = useContext(AuthContext);
   const handleLogin = async (e) => {
     e.preventDefault();
     const email = loginForm.email;
@@ -42,6 +43,8 @@ export default function SignUpIn() {
       })
       .then((resData) => {
         console.log(resData);
+        auth.login(resData.token);
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -85,6 +88,8 @@ export default function SignUpIn() {
       })
       .then((resData) => {
         console.log(resData);
+        auth.login(resData.token);
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);

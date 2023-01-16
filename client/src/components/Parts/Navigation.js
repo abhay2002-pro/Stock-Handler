@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/authcontext";
 export const Navigation = (props) => {
+  const auth = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <nav id="menu" className="navbar navbar-default navbar-fixed-top">
       <div className="container">
@@ -36,7 +41,14 @@ export const Navigation = (props) => {
               </a>
             </li>
             <li>
-              <a href="#team" className="page-scroll">
+              <a
+                href=""
+                className="page-scroll"
+                onClick={() => {
+                  auth.logout();
+                  navigate("/account");
+                }}
+              >
                 Logout
               </a>
             </li>
