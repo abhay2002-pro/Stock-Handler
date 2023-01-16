@@ -42,7 +42,7 @@ export default function GraphCard({
   }, [option, time]);
 
   return (
-    <Box>
+    <Box style={{ background: "#f6f6f6"}}>
       <Box
         sx={{
           border: "1px solid #e4e4e4",

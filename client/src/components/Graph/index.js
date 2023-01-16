@@ -62,8 +62,8 @@ export default function Graph({ data }) {
           <Area
             type="monotone"
             dataKey="Showval"
-            stroke="#8676ff"
-            fill="#F8F6FF"
+            stroke="#6372ff"
+            fill="#6372ff"
             strokeWidth={3}
             dot={false}
           />

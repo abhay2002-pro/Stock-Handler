@@ -12,7 +12,7 @@ export const Header = (props) => {
                 </h1>
                 <p>Place to handle your stocks</p>
                 <a
-                  href="#features"
+                  href="#si"
                   className="btn btn-custom btn-lg page-scroll"
                 >
                   Get Started
